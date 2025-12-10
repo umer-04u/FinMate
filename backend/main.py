@@ -1,6 +1,7 @@
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 import pandas as pd
+import numpy as np
 import pickle
 import os
 import uvicorn
@@ -162,8 +163,23 @@ def get_transactions():
         data_path = "../data/processed/cleaned_transactions.csv"
         if os.path.exists(data_path):
             df = pd.read_csv(data_path)
-            # Convert to list of dicts
-            return df.to_dict(orient="records")
+            
+            # Simple, robust way to handle NaN/Inf for JSON compliance:
+            # Convert to dict first, then recursively clean.
+            records = df.to_dict(orient="records")
+            
+            def clean_nan(obj):
+                if isinstance(obj, float):
+                    if np.isnan(obj) or np.isinf(obj):
+                        return None
+                elif isinstance(obj, dict):
+                    return {k: clean_nan(v) for k, v in obj.items()}
+                elif isinstance(obj, list):
+                    return [clean_nan(i) for i in obj]
+                return obj
+                
+            cleaned_records = [clean_nan(record) for record in records]
+            return cleaned_records
         else:
             return []
     except Exception as e:

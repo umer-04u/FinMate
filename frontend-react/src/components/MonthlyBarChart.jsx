@@ -4,9 +4,9 @@ import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContaine
 const CustomTooltip = ({ active, payload, label }) => {
     if (active && payload && payload.length) {
         return (
-            <div className="bg-secondary p-3 border border-gray-700 rounded-lg shadow-xl">
-                <p className="font-bold text-white">{label}</p>
-                <p className="text-accent">₹{payload[0].value.toFixed(2)}</p>
+            <div className="bg-gray-900 p-3 border border-gray-700 rounded-lg shadow-xl backdrop-blur-sm bg-opacity-90">
+                <p className="font-bold text-white mb-1">{label}</p>
+                <p className="text-primary font-medium">₹{payload[0].value.toFixed(2)}</p>
             </div>
         );
     }
@@ -15,22 +15,32 @@ const CustomTooltip = ({ active, payload, label }) => {
 
 const MonthlyBarChart = ({ data }) => {
     return (
-        <div className="h-[300px] w-full bg-secondary p-4 rounded-xl border border-gray-800">
-            <h3 className="text-lg font-semibold text-white mb-4">Monthly Spending Trend</h3>
-            {data.length === 0 ? (
-                <div className="h-full flex items-center justify-center text-gray-500">No data available</div>
-            ) : (
-                <ResponsiveContainer width="100%" height="100%">
-                    <BarChart data={data}>
-                        <CartesianGrid strokeDasharray="3 3" stroke="#333" vertical={false} />
-                        <XAxis dataKey="name" stroke="#6b7280" tick={{ fill: '#9ca3af' }} />
-                        <YAxis stroke="#6b7280" tick={{ fill: '#9ca3af' }} />
-                        <Tooltip content={<CustomTooltip />} cursor={{ fill: 'rgba(56, 189, 248, 0.1)' }} />
-                        <Bar dataKey="value" fill="#38bdf8" radius={[4, 4, 0, 0]} />
-                    </BarChart>
-                </ResponsiveContainer>
-            )}
-        </div>
+        <ResponsiveContainer width="100%" height="100%">
+            <BarChart data={data} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
+                <CartesianGrid strokeDasharray="3 3" stroke="#27272a" vertical={false} />
+                <XAxis
+                    dataKey="name"
+                    stroke="#52525b"
+                    tick={{ fill: '#71717a', fontSize: 12 }}
+                    axisLine={false}
+                    tickLine={false}
+                />
+                <YAxis
+                    stroke="#52525b"
+                    tick={{ fill: '#71717a', fontSize: 12 }}
+                    axisLine={false}
+                    tickLine={false}
+                />
+                <Tooltip cursor={{ fill: '#27272a' }} content={<CustomTooltip />} />
+                <Bar
+                    dataKey="value"
+                    fill="#3b82f6"
+                    radius={[4, 4, 0, 0]}
+                    maxBarSize={50}
+                    activeBar={{ fill: '#60a5fa' }}
+                />
+            </BarChart>
+        </ResponsiveContainer>
     );
 };
 

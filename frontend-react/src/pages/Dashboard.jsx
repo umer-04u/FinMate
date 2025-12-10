@@ -64,15 +64,20 @@ const Dashboard = () => {
     if (error) return <div className="p-8 text-red-500">{error}</div>;
 
     return (
-        <div className="p-8 space-y-8">
-            <div className="flex justify-between items-center">
+        <div className="space-y-8">
+            <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
                 <div>
-                    <h1 className="text-3xl font-bold text-white mb-2">Financial Overview</h1>
-                    <p className="text-gray-400">Welcome back! Here's your spending summary.</p>
+                    <h1 className="text-3xl font-bold text-white tracking-tight">Overview</h1>
+                    <p className="text-secondary mt-1">Welcome back, here's what's happening with your finances today.</p>
                 </div>
-                <button className="bg-accent text-dark px-4 py-2 rounded-lg font-semibold hover:bg-opacity-90 transition">
-                    Download Report
-                </button>
+                <div className="flex gap-3">
+                    <button className="px-4 py-2 bg-card border border-gray-800 text-gray-300 rounded-lg hover:bg-gray-800 transition-colors text-sm font-medium">
+                        Last 30 Days
+                    </button>
+                    <button className="px-4 py-2 bg-primary text-white rounded-lg hover:bg-blue-600 transition-colors shadow-lg shadow-blue-500/20 text-sm font-medium">
+                        Download Report
+                    </button>
+                </div>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -97,7 +102,12 @@ const Dashboard = () => {
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                 <SpendingPieChart data={categoryData} />
-                <MonthlyBarChart data={monthlyData} />
+                <div className="bg-card p-6 rounded-xl border border-gray-800/60 shadow-sm">
+                    <h3 className="text-lg font-semibold text-white mb-6">Monthly Trends</h3>
+                    <div className="h-[300px]">
+                        <MonthlyBarChart data={monthlyData} />
+                    </div>
+                </div>
             </div>
         </div>
     );

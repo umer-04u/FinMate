@@ -73,95 +73,112 @@ const AddTransaction = () => {
         }
     };
 
-    return (
-        <div className="p-8 max-w-2xl mx-auto">
-            <h1 className="text-3xl font-bold text-white mb-8">Add New Transaction</h1>
 
-            <div className="bg-secondary p-8 rounded-xl border border-gray-800 shadow-xl">
-                <form onSubmit={analyzeTransaction} className="space-y-6">
+    return (
+        <div className="max-w-2xl mx-auto space-y-8 animate-fade-in">
+            <div>
+                <h1 className="text-3xl font-bold text-white tracking-tight">Add Transaction</h1>
+                <p className="text-secondary mt-1">Log your expenses or use AI to auto-categorize them.</p>
+            </div>
+
+            <div className="bg-card p-8 rounded-xl border border-gray-800/60 shadow-lg relative overflow-hidden">
+                <div className="absolute top-0 right-0 w-64 h-64 bg-primary/5 rounded-full blur-3xl -mr-32 -mt-32 pointer-events-none"></div>
+
+                <form onSubmit={analyzeTransaction} className="space-y-6 relative z-10">
                     <div>
-                        <label className="block text-gray-400 mb-2 font-medium">Merchant / Description</label>
+                        <label className="block text-gray-400 text-sm font-medium mb-2">Merchant Name</label>
                         <input
                             type="text"
                             name="merchant"
                             value={formData.merchant}
                             onChange={handleChange}
-                            placeholder="e.g. Starbucks, Uber, etc."
-                            className="w-full bg-dark border border-gray-700 rounded-lg p-3 text-white focus:border-accent focus:outline-none transition-colors"
+                            placeholder="e.g. Starbucks, Uber, Netflix"
+                            className="w-full bg-dark border border-gray-800 rounded-lg p-3 text-white placeholder-gray-600 focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none transition-all"
                         />
                     </div>
 
                     <div className="grid grid-cols-2 gap-6">
                         <div>
-                            <label className="block text-gray-400 mb-2 font-medium">Amount (₹)</label>
+                            <label className="block text-gray-400 text-sm font-medium mb-2">Amount (₹)</label>
                             <input
                                 type="number"
                                 name="amount"
                                 value={formData.amount}
                                 onChange={handleChange}
+                                placeholder="0.00"
                                 step="0.01"
-                                className="w-full bg-dark border border-gray-700 rounded-lg p-3 text-white focus:border-accent focus:outline-none transition-colors"
+                                className="w-full bg-dark border border-gray-800 rounded-lg p-3 text-white placeholder-gray-600 focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none transition-all"
                             />
                         </div>
                         <div>
-                            <label className="block text-gray-400 mb-2 font-medium">Date</label>
+                            <label className="block text-gray-400 text-sm font-medium mb-2">Date</label>
                             <input
                                 type="date"
                                 name="date"
                                 value={formData.date}
                                 onChange={handleChange}
-                                className="w-full bg-dark border border-gray-700 rounded-lg p-3 text-white focus:border-accent focus:outline-none transition-colors"
+                                className="w-full bg-dark border border-gray-800 rounded-lg p-3 text-white focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none transition-all"
                             />
                         </div>
                     </div>
 
-                    {/* Analysis Result Area */}
                     {category && (
-                        <div className="bg-dark p-4 rounded-lg border border-gray-700 animate-fade-in">
-                            <p className="text-gray-400 text-sm mb-1">Auto-Categorized As:</p>
-                            <p className="text-xl font-bold text-accent mb-4">{category}</p>
+                        <div className="bg-gray-800/30 p-4 rounded-lg border border-gray-700/50 animate-fade-in">
+                            <div className="flex justify-between items-start mb-4">
+                                <div>
+                                    <p className="text-gray-500 text-xs uppercase tracking-wider font-semibold">AI Detected Category</p>
+                                    <p className="text-xl font-bold text-white mt-1">{category}</p>
+                                </div>
+                                <span className="px-2 py-1 bg-primary/10 text-primary text-xs rounded-full font-medium border border-primary/20">
+                                    High Confidence
+                                </span>
+                            </div>
 
-                            {anomalyCheck && anomalyCheck.is_anomaly ? (
-                                <div className="flex items-center gap-2 text-red-400 bg-red-400/10 p-3 rounded-lg border border-red-400/20">
-                                    <AlertTriangle size={20} />
-                                    <span className="font-medium">Unusual Spend Detected! (High Confidence)</span>
+                            {anomalyCheck?.is_anomaly ? (
+                                <div className="flex items-center gap-3 text-red-400 bg-red-400/5 p-3 rounded-lg border border-red-400/10">
+                                    <AlertTriangle size={18} />
+                                    <div>
+                                        <p className="text-sm font-semibold">Unusual Spend Detected!</p>
+                                        <p className="text-xs opacity-80">This amount is higher than your average for {category}.</p>
+                                    </div>
                                 </div>
                             ) : (
-                                <div className="flex items-center gap-2 text-green-400 bg-green-400/10 p-3 rounded-lg border border-green-400/20">
-                                    <CheckCircle size={20} />
-                                    <span className="font-medium">Looks like a normal transaction.</span>
+                                <div className="flex items-center gap-3 text-emerald-400 bg-emerald-400/5 p-3 rounded-lg border border-emerald-400/10">
+                                    <CheckCircle size={18} />
+                                    <div>
+                                        <p className="text-sm font-semibold">Within Normal Range</p>
+                                        <p className="text-xs opacity-80">This transaction looks consistent with history.</p>
+                                    </div>
                                 </div>
                             )}
                         </div>
                     )}
 
-                    <div className="pt-4 flex gap-4">
+                    <div className="pt-2 flex gap-4">
                         {!category ? (
                             <button
                                 type="submit"
                                 disabled={loading}
-                                className="flex-1 bg-accent text-dark font-bold py-3 rounded-lg hover:bg-opacity-90 transition disabled:opacity-50 flex justify-center items-center gap-2"
+                                className="w-full bg-primary text-white font-semibold py-3 rounded-lg hover:bg-blue-600 transition-all shadow-lg shadow-blue-500/20 disabled:opacity-50 flex justify-center items-center gap-2"
                             >
-                                {loading && <Loader className="animate-spin" size={20} />}
-                                Analyze Transaction
+                                {loading ? <Loader className="animate-spin" size={18} /> : 'AI Analyze & Categorize'}
                             </button>
                         ) : (
                             <>
                                 <button
                                     type="button"
-                                    onClick={() => setCategory(null)} // Reset to edit
-                                    className="flex-1 bg-gray-700 text-white font-bold py-3 rounded-lg hover:bg-gray-600 transition"
+                                    onClick={() => setCategory(null)}
+                                    className="flex-1 bg-transparent border border-gray-700 text-gray-400 font-medium py-3 rounded-lg hover:bg-gray-800 hover:text-white transition-all"
                                 >
-                                    Edit Details
+                                    Edit
                                 </button>
                                 <button
                                     type="button"
                                     onClick={handleSubmit}
                                     disabled={submitting}
-                                    className="flex-1 bg-green-500 text-white font-bold py-3 rounded-lg hover:bg-green-600 transition disabled:opacity-50 flex justify-center items-center gap-2"
+                                    className="flex-[2] bg-emerald-500 text-white font-semibold py-3 rounded-lg hover:bg-emerald-600 transition-all shadow-lg shadow-emerald-500/20 disabled:opacity-50 flex justify-center items-center gap-2"
                                 >
-                                    {submitting && <Loader className="animate-spin" size={20} />}
-                                    Confirm & Add
+                                    {submitting ? <Loader className="animate-spin" size={18} /> : 'Confirm Transaction'}
                                 </button>
                             </>
                         )}
