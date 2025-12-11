@@ -3,9 +3,9 @@
 # --- Frontend build ---
 FROM node:20-bullseye-slim AS frontend
 WORKDIR /app/frontend
-COPY frontend-react/package*.json ./
+COPY frontend/package*.json ./
 RUN npm install
-COPY frontend-react/ ./
+COPY frontend/ ./
 RUN npm run build
 
 # --- Backend runtime ---
@@ -26,7 +26,7 @@ COPY models/ models/
 COPY data/ data/
 
 # Copy built frontend into backend-serving path
-COPY --from=frontend /app/frontend/dist frontend-react/dist
+COPY --from=frontend /app/frontend/dist frontend/dist
 
 ENV PYTHONUNBUFFERED=1
 ENV PORT=8000
