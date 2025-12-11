@@ -1,5 +1,7 @@
 Date,Merchant,Category,Amount,Is_Expense,Is_Anomaly
 2024-12-15,Gas Company,Utilities,1350.63,True,False
+2025-01-13,Doctor Visit,Health,3181.5,True,False
+2025-01-21,Safeway,Groceries,4172.1,True,False
 2025-01-28,Lyft,Transport,429.02,True,False
 2025-02-06,Water Dept,Utilities,2480.2,True,False
 2025-02-21,Walmart,Groceries,3157.22,True,False
@@ -7,15 +9,23 @@ Date,Merchant,Category,Amount,Is_Expense,Is_Anomaly
 2025-04-03,Gas Company,Utilities,727.27,True,False
 2025-04-08,Whole Foods,Food & Drink,661.63,True,False
 2025-04-17,Best Buy,Shopping,9080.41,True,False
+2025-04-19,KFC,Food & Drink,1109.01,True,False
 2025-04-27,Target,Groceries,2903.63,True,False
 2025-05-09,Target,Groceries,4399.18,True,False
+2025-05-18,Uber,Transport,230.65,True,False
 2025-06-02,Walmart,Groceries,2209.67,True,False
 2025-06-06,Amazon,Shopping,7567.59,True,False
 2025-06-15,Uber,Transport,84.37,True,False
 2025-06-23,Kroger,Groceries,4232.32,True,False
 2025-08-01,Spotify,Entertainment,929.31,True,False
+2025-08-01,KFC,Food & Drink,1326.19,True,False
 2025-08-05,Doctor Visit,Health,4952.86,True,False
+2025-08-25,Electric Co,Utilities,2676.3,True,False
+2025-09-09,Uber Eats,Food & Drink,5263.32,True,True
+2025-09-10,Water Dept,Utilities,2149.38,True,False
+2025-09-12,H&M,Shopping,2003.97,True,False
 2025-09-23,Shell Gas,Transport,682.14,True,False
 2025-09-28,Spotify,Entertainment,1414.25,True,False
+2025-11-04,Lyft,Transport,330.44,True,False
 2025-11-04,Walmart,Groceries,3836.98,True,False
 2025-11-06,Salary,Income,61785.62,False,False

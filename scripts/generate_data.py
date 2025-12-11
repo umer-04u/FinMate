@@ -3,7 +3,7 @@ import numpy as np
 import random
 from datetime import datetime, timedelta
 
-def generate_synthetic_data(num_rows=20):
+def generate_synthetic_data(num_rows=30):
     """
     Generates a synthetic dataset of financial transactions.
     Includes normal patterns (recurring bills, daily spend) and anomalies.
@@ -12,7 +12,7 @@ def generate_synthetic_data(num_rows=20):
     random.seed(42)
 
     categories = {
-        'Food & Drink': ['Starbucks', 'McDonalds', 'Whole Foods', 'Local Cafe', 'Uber Eats'],
+        'Food & Drink': ['Starbucks', 'McDonalds', 'Whole Foods', 'Local Cafe', 'Uber Eats','KFC'],
         'Groceries': ['Walmart', 'Target', 'Kroger', 'Safeway'],
         'Utilities': ['Electric Co', 'Water Dept', 'Internet Provider', 'Gas Company'],
         'Transport': ['Uber', 'Lyft', 'Shell Gas', 'Subway Ticket'],
