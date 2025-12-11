@@ -24,10 +24,10 @@ const AppLayout = () => {
       <aside className="w-64 bg-card border-r border-gray-800 flex flex-col fixed h-full z-10 transition-all duration-300">
         <div className="p-6 border-b border-gray-800 flex items-center gap-3">
           <div className="w-8 h-8 bg-gradient-to-tr from-primary to-blue-400 rounded-lg flex items-center justify-center text-white font-bold text-xl">
-            $
+            ₹
           </div>
           <span className="text-xl font-bold tracking-tight text-white">
-            FinAI <span className="text-secondary font-normal text-sm">Pro</span>
+            FinMate <span className="text-secondary font-normal text-sm">Pro</span>
           </span>
         </div>
 
