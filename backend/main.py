@@ -39,13 +39,6 @@ CHAT_MODEL = None
 load_dotenv()
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
 
-# --- Serve built frontend if present (for single-container deploys) ---
-FRONTEND_DIST = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "frontend", "dist"))
-if os.path.exists(FRONTEND_DIST):
-    app.mount("/", StaticFiles(directory=FRONTEND_DIST, html=True), name="frontend")
-else:
-    print("Frontend dist not found; API-only mode.")
-
 def load_models():
     model_dir = "../models"
     try:
@@ -189,12 +182,6 @@ class TransactionInput(BaseModel):
 
 class CategorizeInput(BaseModel):
     merchant: str
-
-# --- Endpoints ---
-
-@app.get("/")
-def read_root():
-    return {"message": "Budget Analysis AI API is running"}
 
 @app.post("/analyze/anomaly")
 def check_anomaly(transaction: TransactionInput):
@@ -407,6 +394,13 @@ def chat_bot(input_data: ChatInput):
         traceback.print_exc()
         # Surface a clearer error to the client
         raise HTTPException(status_code=500, detail=f"Gemini chat failed: {e}")
+
+# --- Serve built frontend if present (for single-container deploys) ---
+FRONTEND_DIST = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "frontend", "dist"))
+if os.path.exists(FRONTEND_DIST):
+    app.mount("/", StaticFiles(directory=FRONTEND_DIST, html=True), name="frontend")
+else:
+    print("Frontend dist not found; API-only mode.")
 
 if __name__ == "__main__":
     uvicorn.run(app, host="0.0.0.0", port=8000)
