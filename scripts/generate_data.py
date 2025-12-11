@@ -3,7 +3,7 @@ import numpy as np
 import random
 from datetime import datetime, timedelta
 
-def generate_synthetic_data(num_rows=5000):
+def generate_synthetic_data(num_rows=20):
     """
     Generates a synthetic dataset of financial transactions.
     Includes normal patterns (recurring bills, daily spend) and anomalies.
