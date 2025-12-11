@@ -1,6 +1,7 @@
 import axios from 'axios';
 
-const API_URL = 'http://localhost:8000';
+// Use env override if provided, else same-origin (works on Render)
+const API_URL = import.meta.env.VITE_API_BASE_URL || window.location.origin;
 
 export const api = axios.create({
     baseURL: API_URL,
